@@ -138,3 +138,35 @@ https://www.pwxcoo.com/dictionary?type=word&word=吴
 所有的数据都是我从网上找的。仓库本来的目的是因为我以前想做一个成语接龙的东西，但是苦于没有现成可用的数据库，自己就从各个网站抓取整理了一份。放在 Github 是为了方便自己的使用，同时也能方便有类似需求的人不用去做这些 trival 的工作。所有抓取数据的脚本都在仓库里。
 
 **本仓库无任何商业目的！如果有侵权行为，请联系我！请不要把我抓走！**
+
+
+将JSON数据转换成CSV
+
+```python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import csv
+import json
+import sys
+import codecs     
+with codecs.open('idiom.json','r',encoding='utf-8') as data_file:
+    x = json.loads(data_file.read())
+    with open("text.csv","w", newline='', encoding='utf-8') as csvfile:
+        f = csv.writer(csvfile, delimiter='\t',
+                        quotechar='\n', quoting=csv.QUOTE_MINIMAL)
+        # 表头
+        # f.writerow(["derivation", "example", "explanation", "pinyin", "word", "abbreviation"])
+        f.writerow([str(k) for k,v in x.items() ])
+        for x in x :
+            # f.writerow([
+            #     str(x["derivation"]), str(x["example"]), 
+            #     str(x["explanation"]), str(x["pinyin"]), 
+            #     str(x["word"]), str(x["abbreviation"])
+            #     ])
+            f.writerow([str(v) for k,v in x.items() ])
+```
+
+将CSV数据导入MySQL
+
+
