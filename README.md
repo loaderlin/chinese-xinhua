@@ -169,7 +169,9 @@ with codecs.open(json_path,'r',encoding='utf-8') as data_file:
             #     str(x["explanation"]), str(x["pinyin"]), 
             #     str(x["word"]), str(x["abbreviation"])
             #     ])
-            f.writerow(['\"'+str(v)+'\"' for k,v in x.items()])
+            f.writerow([str(v) for k,v in x.items()])
+            # word.json
+            # f.writerow(["\'"+str(v)+"\'" for k,v in x.items()])
 ```
 
 将CSV数据导入MySQL
@@ -200,12 +202,12 @@ optionally enclosed by '"'
 lines terminated by '\n';
 
 -- 导入
-load data infile '/var/lib/mysql-files/idiom.csv'
-into table idiom
+load data infile '/var/lib/mysql-files/word.csv'
+into table word
 fields terminated by '\t'
-optionally enclosed by '"'
-lines terminated by '\n';
-ignore 1 lines (derivation,example,explanation,pinyin,word,abbreviation)
+optionally enclosed by "'"
+lines terminated by '\r\n'
+ignore 1 lines (word,oldword,strokes,pinyin,radicals,explanation,more);
 ```
 ignore 1 ... #忽略第一行标题行 需要导入的列展示出来
 word,oldword,strokes,pinyin,radicals,explanation,more
