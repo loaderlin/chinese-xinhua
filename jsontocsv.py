@@ -23,4 +23,4 @@ with codecs.open(json_path,'r',encoding='utf-8') as data_file:
             #     str(x["explanation"]), str(x["pinyin"]), 
             #     str(x["word"]), str(x["abbreviation"])
             #     ])
-            f.writerow([str(v) for k,v in x.items()])
+            f.writerow(["\'" + str(v) + "\'" for k,v in x.items()])
